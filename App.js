@@ -1,11 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}>
+        <View style={styles.container}>
+          <View style = {styles.modalView}>
+            <Text style={styles.modalText}>This is modal...</Text>
+            <Pressable
+              style={styles.button}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.closeText}>Close</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable
+        style={styles.button}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>Show modal message</Text>
+      </Pressable>
     </View>
   );
 }
@@ -13,8 +32,43 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'dodgerblue',
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  modalView: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    shadowColor: '#000'
+    },
+
+  button: {
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  textStyle:{
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+
+  closeText:{
+    color: 'dodgerblue',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingTop: 10, 
+  },
+
+  modalText: {
+    color: 'dodgerblue',
+    textAlign: 'center',
+    marginTop: 10
+  },
+
+
 });
